@@ -4,9 +4,9 @@ from models.database import create_db_and_tables
 from routers import users, auth, notes, report # Import router mới
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
-from database import engine
+from models.database import engine
 from models.user import User
-from models.note import DailyNote
+from models.daily_note import DailyNote
 
 app = FastAPI(
     title="DSM WebApp API",
