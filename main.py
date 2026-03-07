@@ -12,7 +12,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"], # Chỉ cho phép port 3000 truy cập
+    allow_origins=["*"], # Cho phép mọi nguồn gốc (origin)
     allow_credentials=True,
     allow_methods=["*"], # Cho phép mọi phương thức (GET, POST, PUT, DELETE)
     allow_headers=["*"], # Cho phép mọi header
