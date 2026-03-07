@@ -12,7 +12,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Cho phép mọi nguồn gốc (origin)
+    allow_origins=[
+        "http://localhost:3000", # Để dành cho lúc em code ở máy
+        "https://dsm-frontend-sigma.vercel.app" # Tên miền Vercel thật của em
+    ],
     allow_credentials=True,
     allow_methods=["*"], # Cho phép mọi phương thức (GET, POST, PUT, DELETE)
     allow_headers=["*"], # Cho phép mọi header
