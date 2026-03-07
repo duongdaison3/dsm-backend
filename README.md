@@ -22,27 +22,31 @@
 
 **1. Clone kho lưu trữ này về máy:**
 
-````bash
+```
 git clone [https://github.com/duongdaison3/dsm-backend.git](https://github.com/duongdaison3/dsm-backend.git)
 cd dsm-backend
+```
 
 **2. Tạo môi trường ảo và cài đặt thư viện:**
-```bash
+
+```
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
+```
 
 **3. Tạo file .env ở thư mục gốc và cấu hình:**
-```bash
+
+```
 DATABASE_URL=postgresql://<user>:<password>@<host>/<db_name>?sslmode=require
 SECRET_KEY=your_secret_key
 ALGORITHM=HS256
 GEMINI_API_KEYS=your_gemini_key_1,your_gemini_key_2
+```
 
 **4. Khởi chạy Server:**
-```bash
-uvicorn main:app --reload
-API Docs (Swagger UI) sẽ có sẵn tại: http://localhost:8000/docs
+`uvicorn main:app --reload`
 
-👨‍💻 Tác giả: Pea Dương - Sinh viên năm cuối Khoa CNTT @ Đại học Phenikaa.
-````
+API Docs (Swagger UI) sẽ có sẵn tại: `http://localhost:8000/docs`
+
+👨‍💻 **Tác giả:** Pea Dương - Sinh viên năm cuối Khoa CNTT @ Đại học Phenikaa.
