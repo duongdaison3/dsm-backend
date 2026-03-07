@@ -30,3 +30,11 @@ app.include_router(report.router)
 @app.get("/")
 def read_root():
     return {"message": "Server DSM WebApp đang hoạt động ngon lành!"}
+
+@app.get("/init-db")
+def initialize_database():
+    try:
+        SQLModel.metadata.create_all(engine)
+        return {"message": "Tuyệt vời! Đã xây dựng toàn bộ các bảng trong Database thành công."}
+    except Exception as e:
+        return {"error": f"Có lỗi xảy ra: {str(e)}"}
