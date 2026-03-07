@@ -6,7 +6,7 @@ from datetime import date, timedelta # Thêm timedelta
 from models.user import User, RoleEnum # Thêm RoleEnum
 from pydantic import BaseModel
 from typing import List, Optional
-from datetime import date
+from datetime import date, timedelta
 import jwt
 import os
 
@@ -146,3 +146,34 @@ def get_monthly_total_stats(session: Session = Depends(get_session)):
     ).all()
     
     return {"current_month_count": len(notes)}
+
+# Thêm API mới này vào cuối file
+@router.get("/my-streak")
+def get_my_streak(current_user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+    # 1. Lấy toàn bộ ngày đã viết nhật ký của user này, xếp từ cũ nhất đến mới nhất
+    notes = session.exec(
+        select(DailyNote.note_date)
+        .where(DailyNote.user_id == current_user.id)
+        .order_by(DailyNote.note_date.asc())
+    ).all()
+
+    if not notes:
+        return {"streak": 0}
+
+    # 2. Lọc ngày trùng lặp (lỡ 1 ngày sửa note 2 lần)
+    unique_dates = sorted(list(set(notes)))
+    first_date = unique_dates[0]
+    today = date.today()
+
+    streak = 0
+    current_date = first_date
+
+    # 3. Chạy vòng lặp thời gian từ ngày đầu tiên đến hôm nay để tính điểm
+    while current_date <= today:
+        if current_date in unique_dates:
+            streak += 1 # Viết -> Cộng 1
+        else:
+            streak = max(0, streak - 1) # Quên -> Trừ 1 (Tối thiểu là 0)
+        current_date += timedelta(days=1)
+
+    return {"streak": streak}
