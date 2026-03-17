@@ -10,12 +10,12 @@ class RoleEnum(str, Enum):
     staff = "staff"
 
 class User(SQLModel, table=True):
-    id: Optional[uuid.UUID] = Field(default_factory=uuid.uuid4, primary_key=True)
-    email: str = Field(unique=True, index=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
+    username: str = Field(unique=True, index=True) # Đã đổi thành username
     hashed_password: str
     full_name: str
-    role: RoleEnum = Field(default=RoleEnum.staff)
-    is_first_login: bool = Field(default=True)
+    role: str
+    is_first_login: bool = True
     avatar_url: Optional[str] = None
-    dob: Optional[date] = None
+    dob: Optional[str] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)

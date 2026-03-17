@@ -15,7 +15,7 @@ def get_session():
 @router.post("/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
     # Bước 1: Tìm user trong database bằng email (OAuth2 mặc định dùng trường 'username', nên ta map nó với email)
-    user = session.exec(select(User).where(User.email == form_data.username)).first()
+    user = session.exec(select(User).where(User.username == form_data.username)).first()
     
     # Bước 2: Kiểm tra sự tồn tại của user và độ chính xác của mật khẩu
     if not user or not verify_password(form_data.password, user.hashed_password):
