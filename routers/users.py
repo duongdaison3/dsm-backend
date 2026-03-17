@@ -2,7 +2,6 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from models.user import User
-from main import get_session
 from utils.security import get_password_hash
 from pydantic import BaseModel
 
