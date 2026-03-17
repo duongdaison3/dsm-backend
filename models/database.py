@@ -9,7 +9,7 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Khởi tạo engine (echo=True giúp in ra các câu lệnh SQL trên terminal để dễ debug)
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, pool_pre_ping=True, pool_recycle=300, echo=True)
 
 def create_db_and_tables():
     # Import các model vào đây để SQLModel nhận diện được trước khi tạo bảng
