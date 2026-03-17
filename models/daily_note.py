@@ -1,12 +1,13 @@
 from typing import Optional
-from sqlmodel import Field, SQLModel
+from sqlmodel import SQLModel, Field
 from datetime import date, datetime
-import uuid
 
 class DailyNote(SQLModel, table=True):
-    id: Optional[uuid.UUID] = Field(default_factory=uuid.uuid4, primary_key=True)
-    user_id: uuid.UUID = Field(foreign_key="user.id", index=True) # Ràng buộc khóa ngoại với bảng User
-    note_date: date = Field(default_factory=date.today, index=True)
+    # Đổi UUID thành int ở 2 dòng này
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="user.id") 
+    
+    note_date: date
     highlight: str
     follow_up: str
     blockers: str
