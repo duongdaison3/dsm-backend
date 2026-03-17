@@ -27,7 +27,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = D
     
     # Bước 3: Đăng nhập thành công, tạo Token nhét thông tin (email, role, is_first_login) vào
     access_token = create_access_token(
-        data={"sub": user.email, "role": user.role, "is_first_login": user.is_first_login}
+        data={"sub": user.username, "role": user.role} # Đã sửa thành username
     )
     
     # Bước 4: Trả token về cho Frontend
