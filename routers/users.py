@@ -1,9 +1,15 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
+from models.database import engine
 from models.user import User
 from utils.security import get_password_hash
 from pydantic import BaseModel
+
+
+def get_session():
+    with Session(engine) as session:
+        yield session
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
